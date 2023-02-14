@@ -8,6 +8,12 @@
 #define IN_DEFINE_BLOCK 1
 #define NOT_IN_DEFINE_BLOCK 0
 
+typedef enum _parse_fsm_state_t {
+    STATE_INITIAL,
+    STATE_DEFINE,
+    STATE_IDENTIFIER
+} parse_fsm_state_t;
+
 typedef enum _parse_state_t {
     STATE_RETURN,
     STATE_STRUCT_DEF,
@@ -52,6 +58,6 @@ char *match_type(char *s);
 
 ast_node *parse(state *st, int in_def_block, int in_prio_block);
 
-//ast_node *parse2(state *st, int in_def_block, int in_prio_block);
+ast_node *parse2(state *st, parse_fsm_state_t state);
 
 #endif // COMPILER_PARSER_H

@@ -1,7 +1,21 @@
-run: compiler.exe
-	./compiler.exe
+CC := gcc
+CPPFLAGS := -Wall -g -MMD -c
+SOURCES = $(wildcard *.c)
+OBJECTS = $(SOURCES:%.c=%.o)
+DEPENDENCIES = $(OBJECTS:%.o=%.d)
+PROJECT := compiler.exe
 
-compiler.exe: FORCE main.c state.c tokenizer.c parser.c
-	gcc -Wall main.c state.c tokenizer.c parser.c -o compiler.exe
+run: $(PROJECT) clean
+	./$(PROJECT)
 
-FORCE:
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CPPFLAGS) -o $@ $<
+
+.PHONY: clean
+clean:
+	$(shell rm -f $(OBJECTS) $(DEPENDENCIES))
+
+-include $(OBJECTS:%.o=%.d)

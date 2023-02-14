@@ -9,17 +9,19 @@
 /**
  * The number of valid operator tokens.
 */
-int num_tokens = 37;
+#define NUM_TOKENS 37
 
 /**
  * The array containing all valid operator tokens.
  * 
- * Must be of length num_tokens.
+ * Must be of length NUM_TOKENS.
 */
-char *tokens[] = {"!", "@", "#", "&", "*", "(", ")", "-", "+", "=",
-                  "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".",
-                  "?", "/", "{", "[", "}", "]", "*=", "-=", "+=", "/=",
-                  "--", "++", "&&", "||", "/**", "*/", "//"};
+char *tokens[NUM_TOKENS] = {
+    "!", "@", "#", "&", "*", "(", ")", "-", "+", "=",
+    "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".",
+    "?", "/", "{", "[", "}", "]", "*=", "-=", "+=", "/=",
+    "--", "++", "&&", "||", "/**", "*/", "//"
+};
 
 /**
  * Creates a new token.
@@ -262,7 +264,7 @@ int scan_next_token(state *st, token *tk) {
 
             // attempt to match a valid token
             j = 0;
-            while (j < num_tokens && matched == 0) {
+            while (j < NUM_TOKENS && matched == 0) {
                 if (strcmp(tk->buf, tokens[j]) == 0) {
                     matched = 1;
                 }

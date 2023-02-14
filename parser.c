@@ -54,6 +54,23 @@ void print_ast(ast_node *nd, int indent, int l) {
 
 }
 
+ast_node *parse2(state *st, parse_fsm_state_t state) {
+    token *tk1 = create_token();
+    if (scan_next_token(st, tk1) == SCAN_SUCCESS) {
+        switch (state) {
+        case STATE_INITIAL:
+            if (tk1->type == TYPE_INTEGER_LITERAL || tk1->type == TYPE_CHAR_LITERAL) {
+                state = STATE_DEFINE;
+            }
+            else if (tk1->type == TYPE_IDENTIFIER) {
+                state = STATE_IDENTIFIER;
+            }
+            else if (tk1->type == TYPE_OPERATOR) {
+            }
+        }
+    }
+}
+
 ast_node *parse(state *st, int in_def_block, int in_prio_block) {
 
     ast_node *ret_val = NULL;

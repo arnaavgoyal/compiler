@@ -14,8 +14,7 @@ typedef struct _symbol {
 
 typedef struct _type {
     char ident[MAX_IDENT_TOKEN_LEN + 1];
-
-};
+} type;
 
 typedef struct _state {
     int line;
