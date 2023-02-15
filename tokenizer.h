@@ -35,6 +35,8 @@ int is_keyword_or_identifier_char(int c, int is_first);
 
 int is_int_char(int c);
 
+void unscan_token(token *tk);
+
 int scan_next_token(state *st, token *tk);
 
 enum _op_token_type_t {

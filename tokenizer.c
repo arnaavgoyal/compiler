@@ -20,7 +20,8 @@ char *tokens[NUM_TOKENS] = {
     "!", "@", "#", "&", "*", "(", ")", "-", "+", "=",
     "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".",
     "?", "/", "{", "[", "}", "]", "*=", "-=", "+=", "/=",
-    "--", "++", "&&", "||", "/**", "*/", "//"
+    "--", "++", "&&", "||", "/**", "*/", "//", "->", ".",
+    ","
 };
 
 /**
@@ -127,6 +128,12 @@ int is_int_char(int c) {
     return 0;
 }
 
+static token *buf_tok = NULL;
+
+void unscan_token(token *tk) {
+    buf_tok = tk;
+}
+
 /**
  * Scans the next token and inserts it, along with other information,
  * into the state object pointed to by the given pointer.
@@ -156,6 +163,12 @@ int scan_next_token(state *st, token *tk) {
 
     // start at success
     int ret_val = SCAN_SUCCESS;
+
+    if (buf_tok != NULL) {
+        tk = buf_tok;
+        buf_tok = NULL;
+        return ret_val;
+    }
 
     // buffer for operator detection
     char op_detect_buf[MAX_OP_TOKEN_LEN + 1];

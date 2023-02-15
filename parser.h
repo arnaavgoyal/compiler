@@ -38,7 +38,8 @@ typedef enum _node_type_t {
     NODE_CHAR_LITERAL,
     NODE_TYPE_DEFINE,
     NODE_STRUCT_DEFINE,
-    NODE_ENUM_DEFINE
+    NODE_ENUM_DEFINE,
+    NODE_OPERATOR
 } node_type_t;
 
 typedef struct _ast_node {
