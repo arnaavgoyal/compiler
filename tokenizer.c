@@ -9,7 +9,7 @@
 /**
  * The number of valid operator tokens.
 */
-#define NUM_TOKENS 37
+#define NUM_TOKENS 40
 
 /**
  * The array containing all valid operator tokens.
@@ -31,6 +31,11 @@ token *create_token() {
     token *tk = malloc(sizeof(token));
     tk->buf = malloc(MAX_IDENT_TOKEN_LEN + 1);
     return tk;
+}
+
+void copy_token(token *src, token *dest) {
+    strcpy(dest->buf, src->buf);
+    dest->type = src->type;
 }
 
 /**
@@ -131,7 +136,8 @@ int is_int_char(int c) {
 static token *buf_tok = NULL;
 
 void unscan_token(token *tk) {
-    buf_tok = tk;
+    buf_tok = create_token();
+    copy_token(tk, buf_tok);
 }
 
 /**
@@ -165,7 +171,8 @@ int scan_next_token(state *st, token *tk) {
     int ret_val = SCAN_SUCCESS;
 
     if (buf_tok != NULL) {
-        tk = buf_tok;
+        copy_token(buf_tok, tk);
+        free(buf_tok);
         buf_tok = NULL;
         return ret_val;
     }

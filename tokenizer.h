@@ -21,6 +21,8 @@ typedef struct _token {
 
 token *create_token();
 
+void copy_token(token *src, token *dest);
+
 void destroy_token(token *tk);
 
 int get_next_char(FILE *infile);

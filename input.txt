@@ -1,6 +1,1 @@
-int i = 0;
-printf("hello");
-i++;
-i+=334;
-char c=^'H';
-return 0;
+*&++-ident->.++
